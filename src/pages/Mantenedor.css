@@ -1,0 +1,10 @@
+.mantenedor ion-input{
+    text-align: right;
+}
+.mantenedor ion-content ion-header{
+    margin-bottom: 20px;
+}
+
+.mantenedor ion-content ion-header ion-label{
+    font-weight: bold;
+}
