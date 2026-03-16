@@ -133,14 +133,32 @@ const Resumen: React.FC = () => {
                             setItarjetasv((prev:any) => [...prev, {nombre: doc.data().tarjeta_nombre, suma:sum4}])
                         });
                     }
-                    
                 })
-            
+                return () => unsubTarjetas3();
         })
+        return () => unsubMovimientos();
       },[diapago,contPeriodo])
 
-    return (
-        <IonPage className="resumen">
+    useEffect(() => {
+        let newChartData:any = [];
+        if (gefectivof + gefectivov > 0) {
+            newChartData.push({ name: 'Efectivo', value: gefectivof + gefectivov });
+        }
+
+        tarjetas.forEach((val:any) => {
+            const sumF = gTarjetasf.reduce((a:any,b:any)=>(b.nombre===val.nombre?a+b.suma:a),0);
+            const sumV = gTarjetasv.reduce((a:any,b:any)=>(b.nombre===val.nombre?a+b.suma:a),0);
+            if (sumF + sumV > 0) {
+                newChartData.push({ name: val.nombre, value: sumF + sumV });
+            }
+        });
+
+        setChartData(newChartData);
+    }, [gefectivof, gefectivov, gTarjetasf, gTarjetasv, tarjetas]);
+
+    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A28DFF', '#FF66B2'];
+
+    return (        <IonPage className="resumen">
             <IonHeader>
                 <IonToolbar>
                     
